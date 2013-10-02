@@ -1,0 +1,56 @@
+#Specific project files
+
+opencfu
+trainer
+
+
+#Codeblocks
+*.layout.cbTemp
+geany_run_script.sh
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+#autotools
+*.Po
+*.cache/
+*.cache
+build-aux/
+.dirstamp
+.deps/
+config/
+config.*
+Makefile
+stamp-h1
+*.in
+aclocal.m4
+configure
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.tar.gz
+*.d
+*.pdf
+*.avi
+*.out
+*.aux
+*.log
+*~
+
+

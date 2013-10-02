@@ -1,0 +1,1 @@
+./tracker  | tr -d '][\ ' > .csv
