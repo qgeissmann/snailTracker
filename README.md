@@ -9,3 +9,9 @@ with the expected blob.
 An example can be found on youtube: http://youtu.be/V9fK-VXb_VM
 
 The rest of the analysis will be done in `R`.
+
+
+To compile the program after cloning:
+     autoreconf -i
+     ./configure
+     make
