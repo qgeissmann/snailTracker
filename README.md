@@ -12,6 +12,7 @@ The rest of the analysis will be done in `R`.
 
 
 To compile the program after cloning:
+
      autoreconf -i
      ./configure
      make
