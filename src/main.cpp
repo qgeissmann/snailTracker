@@ -35,9 +35,12 @@ int main(int argc, char **argv){
     const float IMPORTANCE_OF_ASPECT_RATIO(4.0);
     const float SCORE_THRESHOLD(.5);
     const float MAX_AR(1.9);
-    const int MIN_LENGTH(4);
-    const int N_MAX_ABSENT_FRAMES(10);
-    const int THRESHOLD(15);
+    const int MIN_LENGTH(5);
+    const int MIN_AREA(10);
+    const int MAX_AREA(100);
+    const int N_MAX_ABSENT_FRAMES(12);
+    const int THRESHOLD(20);
+    const int MAX_CIRCU(2);
 
 
 
@@ -80,8 +83,14 @@ int main(int argc, char **argv){
 
                 for(auto& i : contours)
                     if( calculateARWH(i)[0] < MAX_AR  && i.size() > MIN_LENGTH){
+                        double perim = cv::arcLength(i,true);
+                        double area = cv::contourArea(i) ;
+                        double circu = 0.08 * perim * perim/ area;
+//                        std::cout<<circu<<std::endl;
+//                        std::cout<<cv::Point2f(area,circu)<<std::endl;
 
-                        good_contours.push_back(i);
+                        if(circu < MAX_CIRCU && area > MIN_AREA && area < MAX_AREA )
+                            good_contours.push_back(i);
                 }
 
                 int ncontours = good_contours.size();
@@ -112,7 +121,7 @@ int main(int argc, char **argv){
                     absent_frames = 0;
                 else
                     ++absent_frames;
-                cv::drawContours(frame,contours,-1,cv::Scalar(0,100,200),2,CV_AA,cv::noArray(),2,roi.getRect().tl());
+                cv::drawContours(frame,good_contours,-1,cv::Scalar(0,250,250),2,CV_AA,cv::noArray(),2,roi.getRect().tl());
                 cv::imshow(std::string(argv[1]),frame);
                 cv::waitKey(5);
             }
