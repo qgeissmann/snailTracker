@@ -15,9 +15,9 @@ findNonAmbiguous <- function(mat){
 intrapolateXY <- function(mat){
 	mat[,'t'] <- mat[,'t'] - mat[1,'t']
 	dt <- diff(mat[c(1,nrow(mat)),'t'])
-	x <- approx(mat[,"t"],mat[,"X"],n=dt)$y
-	y <- approx(mat[,"t"],mat[,"Y"],n=dt)$y
-	t <- approx(mat[,"t"],mat[,"Y"],n=dt)$x 
+	x <- approx(mat[,"t"],mat[,"X"],n=dt+1)$y
+	y <- approx(mat[,"t"],mat[,"Y"],n=dt+1)$y
+	t <- approx(mat[,"t"],mat[,"Y"],n=dt+1)$x 
 	mat <- cbind("t" = t,"X" = x, "Y" = y)
 	return(mat)
 }
@@ -41,6 +41,9 @@ main <- function(argv){
 	homogeneous_mat <- intrapolateXY(smoothed_mat)
 	pdf(sprintf("%s.pdf",argv))
 	print(head(homogeneous_mat))
+	cat("...\n")
+	print(tail(homogeneous_mat))
+	
 	plotXYT(homogeneous_mat, argv)
 	dev.off()
 	
