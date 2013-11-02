@@ -39,16 +39,19 @@ int main(int argc, char **argv){
     const int MIN_AREA(10);
     const int MAX_AREA(100);
     const int N_MAX_ABSENT_FRAMES(12);
-    const int THRESHOLD(20);
+    const int THRESHOLD(18);
     const int MAX_CIRCU(2);
 
 
-
+    bool hide(false);
     cv::VideoCapture cap;
 
     ROI roi(CHESS_BOARD_DIM,CHESS_BOARD_DIM);
 
-    assert(argc == 2);
+    assert(argc > 1);
+    assert(argc < 4);
+    if(argc == 3)
+        hide = true;
     cap.open(std::string(argv[1]));
     assert(cap.isOpened());
 
@@ -122,8 +125,10 @@ int main(int argc, char **argv){
                 else
                     ++absent_frames;
                 cv::drawContours(frame,good_contours,-1,cv::Scalar(0,250,250),2,CV_AA,cv::noArray(),2,roi.getRect().tl());
-                cv::imshow(std::string(argv[1]),frame);
-                cv::waitKey(5);
+                if(!hide){
+                    cv::imshow(std::string(argv[1]),frame);
+                    cv::waitKey(5);
+                }
             }
         }
     }

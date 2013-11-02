@@ -13,6 +13,20 @@ The rest of the analysis will be done in `R`.
 
 To compile the program after cloning:
 
-     autoreconf -i
-     ./configure
-     make
+    autoreconf -i
+    ./configure
+    make
+
+Then, to analyse a colection of images that are in the same directory one can do:
+
+    for i in $(ls *.avi); do ./tracker $i > $i.csv; done
+    for i in $(ls *.csv);do echo $i; ./script.R $i;done
+    # to make a pdf with everyone
+    pdftk *.pdf cat output all.pdf
+    
+For each video thi will create:
+
+* One raw csv
+* One "filtered" csv (prefixed `filtered-`)
+* One pdf with the coloured trajectory
+

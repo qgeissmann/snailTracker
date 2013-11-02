@@ -1,7 +1,7 @@
 #!/bin/Rscript
 
 
-findNonAmbiguous <- function(mat){
+findNonAmbiguous <- function(mat,max_speed = 0.01){
 	single_blob <- ifelse(mat[,'nBlobs'] == 1,1 ,0)
 	#~ 	In addition, to be unambiguous, the previous frame and the next 
 	#~ 	frame have to be 1-blobed
@@ -9,8 +9,23 @@ findNonAmbiguous <- function(mat){
 	ifelse(is.na(unambiguous),FALSE,unambiguous)
 	# chop begining
 	mat <- mat[unambiguous,]
+	
 	first <- which(unambiguous)[1]
-	return (na.omit(mat[first:nrow(mat),]))
+	mat <- na.omit(mat[first:nrow(mat),])
+	
+	sdx <- diff(mat[,'X'])^2
+	sdy <- diff(mat[,'Y'])^2
+	dt <- diff(mat[,'t'])
+
+	speed <- c(sqrt(sdx+sdy)/dt,NA)
+	speed_wrong <- ifelse(speed > max_speed, 1, 0)
+	#if any neighbour point has a wrind speed, the point has a wrong speed
+	speed_wrong <- ifelse(filter(speed_wrong,c(1,1,1,1,1,1,1)) > 0, TRUE,FALSE)
+	#speed anormally high = pblem
+	
+	mat <- na.omit(mat[!speed_wrong,])
+	
+	return (mat)
 }
 intrapolateXY <- function(mat){
 	mat[,'t'] <- mat[,'t'] - mat[1,'t']
@@ -22,7 +37,7 @@ intrapolateXY <- function(mat){
 	return(mat)
 }
 
-smoothXY <- function(mat,k=5){
+smoothXY <- function(mat,k=1){
 	mat[,'X'] <- runmed(mat[,'X'],k)
 	mat[,'Y'] <- runmed(mat[,'Y'],k)
 	return(mat)
@@ -44,14 +59,15 @@ main <- function(argv){
 	cat("...\n")
 	print(tail(homogeneous_mat))
 	
+	write.table(file = sprintf("filtered-%s",argv),x=homogeneous_mat,row.names=F,sep=",")
 	plotXYT(homogeneous_mat, argv)
 	dev.off()
 	
 
 }
 
-#~ argv <- commandArgs(TRUE)[1]
-argv <- "/tmp/test.csv"
+argv <- commandArgs(TRUE)[1]
+#~ argv <- "/tmp/test.csv"
 mat <- main(argv);
 
 
