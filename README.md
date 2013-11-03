@@ -20,7 +20,7 @@ To compile the program after cloning:
 Then, to analyse a colection of images that are in the same directory one can do:
 
     for i in $(ls *.avi); do ./tracker $i > $i.csv; done
-    for i in $(ls *.csv);do echo $i; ./script.R $i;done
+    for i in $(ls *.csv | grep -v ^filtered-*);do echo $i; ./script.R $i;done
     # to make a pdf with everyone
     pdftk *.pdf cat output all.pdf
     
