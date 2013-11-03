@@ -31,16 +31,16 @@ int main(int argc, char **argv){
 
     const float ACCUM_ALPHA(0.75);
     const float CHESS_BOARD_DIM(11);
-    const float EXPECTED_ASPECT_RATIO(1.0);
-    const float IMPORTANCE_OF_ASPECT_RATIO(4.0);
-    const float SCORE_THRESHOLD(.5);
+//    const float EXPECTED_ASPECT_RATIO(1.0);
+//    const float IMPORTANCE_OF_ASPECT_RATIO(4.0);
+//    const float SCORE_THRESHOLD(.5);
     const float MAX_AR(1.9);
     const int MIN_LENGTH(5);
-    const int MIN_AREA(10);
-    const int MAX_AREA(100);
-    const int N_MAX_ABSENT_FRAMES(12);
+    const int MIN_AREA(1);
+    const int MAX_AREA(130);
+    const int N_MAX_ABSENT_FRAMES(15);
     const int THRESHOLD(18);
-    const int MAX_CIRCU(2);
+    const float MAX_CIRCU(2.5);
 
 
     bool hide(false);
