@@ -8,8 +8,8 @@ with the expected blob.
 
 An example can be found on youtube: http://www.youtube.com/watch?v=VdbRuSgqwIU&feature=youtu.be
 
-The rest of the analysis will be done in `R`.
-An example script (`script.R`) is provided.
+The rest of the analysis can be done in `R`.
+An example script (`./R/script.R`) is provided.
 
 To compile the program after cloning:
 
