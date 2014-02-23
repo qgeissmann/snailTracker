@@ -6,10 +6,10 @@ It simply calibrates itself using a chessboard pattern and apply an adaptive thr
 to extract darker blobs. Blobs are scored according to their similarity
 with the expected blob.
 
-An example can be found on youtube: http://youtu.be/V9fK-VXb_VM
+An example can be found on youtube: http://www.youtube.com/watch?v=VdbRuSgqwIU&feature=youtu.be
 
 The rest of the analysis will be done in `R`.
-
+An example script (`script.R`) is provided.
 
 To compile the program after cloning:
 
@@ -17,14 +17,14 @@ To compile the program after cloning:
     ./configure
     make
 
-Then, to analyse a colection of images that are in the same directory one can do:
+Then, to analyse a collection of images that are in the same directory one can do:
 
     for i in $(ls *.avi); do ./tracker $i > $i.csv; done
     for i in $(ls *.csv | grep -v ^filtered-*);do echo $i; ./script.R $i;done
     # to make a pdf with everyone
     pdftk *.pdf cat output all.pdf
     
-For each video thi will create:
+For each video this will create:
 
 * One raw csv
 * One "filtered" csv (prefixed `filtered-`)
